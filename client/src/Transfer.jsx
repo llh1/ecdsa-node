@@ -4,7 +4,7 @@ import { utf8ToBytes } from "ethereum-cryptography/utils.js";
 import { useState } from "react";
 import server from "./server";
 
-function Transfer({ setBalance, privateKey }) {
+function Transfer({ setBalance, privateKey, nonce }) {
   const [sendAmount, setSendAmount] = useState("");
   const [recipient, setRecipient] = useState("");
 
@@ -16,7 +16,8 @@ function Transfer({ setBalance, privateKey }) {
     try {
       const transaction = {
         amount: parseInt(sendAmount),
-        recipient
+        recipient,
+        nonce: nonce + 1
       };
 
       const transactionHash = keccak256(utf8ToBytes(JSON.stringify(transaction)));
